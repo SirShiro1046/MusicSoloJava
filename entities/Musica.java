@@ -23,6 +23,9 @@ public class Musica {
     private Double valence;
     private Double tempo;
     private Double duration_ms;
+    public Musica(){
+        
+    }
 
     public Musica(String track_id, String track_name, String track_artist, Double track_popularity,
             String track_album_id, String track_album_name, String track_album_release_date, String playlist_name,
