@@ -1,0 +1,76 @@
+@startuml
+
+
+
+package entidades {
+  class Musica {
+    - track_id: String
+    - track_name:String
+    - track_artist:String
+    - track_popularity:Double
+    - track_album_id:String
+    - track_album_name:String
+    - track_album_release_date:String
+    - playlist_name:String
+    - playlist_id:String
+    - playlist_genre:String
+    - playlist_subgenre:String
+    - danceability:Double
+    - energy:Double
+    - key:Double
+    - loudness:Double
+    - mode:Double
+    - speechiness:Double
+    - acousticness:Double
+    - instrumentalness:Double
+    - valence:Double
+    - tempo:Double
+    - duration_ms:Double
+  }
+}
+package interfaces{
+  interface IMusicaRepository {
+    + obtenerMusica(): List<Musica>
+  }
+}
+
+
+package clases{
+  class CsvReader {
+    - ruta: String
+    - SEPARADOR: String
+    + CsvReader(ruta: String)
+    + obtenerMusica(): List<Musica>
+    - mapearAMusica(campos: String[]): Musica
+  }
+
+  class LeerFuncional {
+
+    - musicaRepository: IMusicaRepository
+    + LeerFuncional(musicaRepository: IMusicaRepository)
+    + primerosDiez(): void
+
+  }
+}
+
+package controller{
+  class MusicaController{
+    -csvReader : CsvReader
+    -leerFuncional: LeerFuncional
+  }
+}
+
+class Main{
+    +main(args : String[])
+  }
+LeerFuncional ..> IMusicaRepository : <<use>>
+
+LeerFuncional --> CsvReader : musicaRepository
+CsvReader --> IMusicaRepository : <<implements>>
+
+Musica -- IMusicaRepository : <<create>>
+
+IMusicaRepository ..> MusicaController
+LeerFuncional ..> MusicaController
+
+@enduml
